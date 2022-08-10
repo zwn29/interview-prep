@@ -1,7 +1,7 @@
 function smallestDifference(arrayOne, arrayTwo) {
   // Write your code here.
-  arrayOne.sort()
-  arrayTwo.sort()
+  arrayOne.sort((a, b) => a - b)
+  arrayTwo.sort((a, b) => a - b)
   let idxOne = 0
   let idxTwo = 0
   let smallest = Infinity
@@ -13,15 +13,16 @@ function smallestDifference(arrayOne, arrayTwo) {
     let secondNum = arrayTwo[idxTwo]
 
     if (firstNum < secondNum) {
-      current = secondNum - firstNum
+      current = Math.abs(firstNum - secondNum)
       idxOne++
     } else if (secondNum < firstNum) {
-      current = firstNum - secondNum
+      current = Math.abs(firstNum - secondNum)
       idxTwo++
     } else {
       return [firstNum, secondNum]
     }
-    if (smallest > current) {
+
+    if (current < smallest) {
       smallest = current
       smallestPair = [firstNum, secondNum]
     }
