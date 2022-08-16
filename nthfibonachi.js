@@ -5,14 +5,38 @@
 // we can use recursion to solve this problem
 // the under soln is recursive soln
 
-function fibonacci(n) {
-  if (n === 0) {
+function getNthFib(n) {
+  // Write your code here.
+  if (n === 1 || n === 0) {
     return 0
-  } else if (n === 1) {
+  } else if (n === 2) {
     return 1
   } else {
-    return fibonacci(n - 1) + fibonacci(n - 2)
+    return getNthFib(n - 1) + getNthFib(n - 2)
   }
 }
 
-console.log(fibonacci(10))
+// memoization soln
+function getNthFibMemo(n, memoize = { 1: 0, 2: 1 }) {
+  if (n in memoize) {
+    return memoize[n]
+  } else {
+    memoize[n] = getNthFibMemo(n - 1, memoize) + getNthFibMemo(n - 2, memoize)
+    return memoize[n]
+  }
+}
+
+//getNthFibArr space optimised soln
+
+function getNthFibArr(n) {
+  let lasttwo = [0, 1]
+  let counter = 3
+  while (counter <= n) {
+    nextfib = lasttwo[0] + lasttwo[1]
+    lasttwo[0] = lasttwo[1]
+    lasttwo[1] = nextfib
+    counter++
+  }
+  return n > 1 ? lasttwo[1] : lasttwo[0]
+}
+console.log(fibonacci(6))
